@@ -1,0 +1,53 @@
+---
+- name: Lisää Dockerin repository
+  deb822_repository:
+    name: docker
+    types: deb
+    uris: https://download.docker.com/linux/debian
+    suites: bookworm
+    components: stable
+    architectures: amd64
+    signed_by: https://download.docker.com/linux/debian/gpg
+    state: present
+
+- name: Päivitä apt cache
+  apt:
+    update_cache: yes
+
+- name: Asenna Docker
+  apt:
+    name:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+      - docker-compose-plugin
+    state: present
+
+- name: Käynnistä ja ota Docker käyttöön
+  systemd:
+    name: docker
+    state: started
+    enabled: yes
+
+- name: Salli portit UFW:ssä
+  ufw:
+    rule: allow
+    port: "{{ item }}"
+    proto: tcp
+  loop:
+    - "80"
+    - "443"
+
+- name: Asenna qemu-guest-agent
+  apt:
+    name: qemu-guest-agent
+    state: present
+
+- name: Ota qemu-guest-agent käyttöön
+  systemd:
+    name: qemu-guest-agent
+    enabled: yes
+
+- name: Reboot VM
+  reboot:
+    reboot_timeout: 120
