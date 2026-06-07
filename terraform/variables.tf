@@ -41,6 +41,11 @@ variable "debian_template" {
   default     = "local:iso/debian-12-generic-amd64.img"
 }
 
+variable "debian_vm_template_id" {
+  description = "Debian 12 cloud-init VM template ID Proxmoxissa"
+  type        = number
+}
+
 # Salasanat
 variable "jellyfin_password" {
   description = "Jellyfin LXC-kontin root-salasana"
@@ -52,4 +57,9 @@ variable "docker_vm_password" {
   description = "Docker VM:n root-salasana"
   type        = string
   sensitive   = true
+}
+
+variable "ansible_ssh_public_key" {
+  description = "Ansible SSH julkinen avain"
+  type        = string
 }
