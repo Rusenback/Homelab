@@ -1,6 +1,10 @@
 resource "null_resource" "jellyfin_mount" {
   depends_on = [proxmox_virtual_environment_container.jellyfin]
 
+  triggers = {
+    container_id = proxmox_virtual_environment_container.jellyfin.vm_id
+  }
+
   connection {
     type        = "ssh"
     user        = "root"

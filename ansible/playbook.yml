@@ -1,0 +1,15 @@
+---
+- name: Common configuration
+  hosts: all
+  roles:
+    - common
+
+- name: Configure Jellyfin
+  hosts: jellyfin
+  roles:
+    - jellyfin
+
+- name: Configure Docker
+  hosts: docker
+  roles:
+    - docker

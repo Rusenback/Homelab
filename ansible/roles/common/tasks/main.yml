@@ -1,0 +1,32 @@
+---
+- name: Päivitä apt cache
+  apt:
+    update_cache: yes
+    cache_valid_time: 3600
+
+- name: Asenna peruspaketit
+  apt:
+    name:
+      - curl
+      - wget
+      - git
+      - ufw
+      - unattended-upgrades
+      - apt-transport-https
+      - ca-certificates
+    state: present
+
+- name: Aseta UFW oletuspolitiikka
+  ufw:
+    policy: deny
+    direction: incoming
+
+- name: Salli SSH
+  ufw:
+    rule: allow
+    port: "22"
+    proto: tcp
+
+- name: Ota UFW käyttöön
+  ufw:
+    state: enabled
