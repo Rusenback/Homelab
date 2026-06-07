@@ -32,8 +32,9 @@ variable "gateway" {
 variable "debian_lxc_template" {
   description = "Debian LXC-template"
   type        = string
-  default     = "local:vztmpl/debian-13-standard_13.1-2_amd64.tar.zst"
+  default     = "local:vztmpl/debian-12-standard_12.12-1_amd64.tar.zst"
 }
+
 
 variable "debian_template" {
   description = "Debian VM-image"

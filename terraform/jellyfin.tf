@@ -1,4 +1,5 @@
 resource "proxmox_virtual_environment_container" "jellyfin" {
+  vm_id = 101
   description  = "Jellyfin media server"
   node_name    = var.proxmox_node
   start_on_boot = true
@@ -24,6 +25,7 @@ resource "proxmox_virtual_environment_container" "jellyfin" {
 
     user_account {
       password = var.jellyfin_password
+      keys = [var.ansible_ssh_public_key]
     }
   }
 

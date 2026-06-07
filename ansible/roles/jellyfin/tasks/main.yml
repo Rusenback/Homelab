@@ -1,0 +1,51 @@
+---
+- name: Lisää Debian backports
+  deb822_repository:
+    name: debian-backports
+    types: deb
+    uris: https://deb.debian.org/debian
+    suites: bookworm-backports
+    components: main contrib non-free non-free-firmware
+    state: present
+
+- name: Lisää Jellyfin repository
+  deb822_repository:
+    name: jellyfin
+    types: deb
+    uris: https://repo.jellyfin.org/debian
+    suites: bookworm
+    components: main
+    architectures: amd64
+    signed_by: https://repo.jellyfin.org/jellyfin_team.gpg.key
+    state: present
+
+- name: Päivitä apt cache
+  apt:
+    update_cache: yes
+
+- name: Asenna riippuvuudet
+  apt:
+    name:
+      - libvpx7
+      - libx265-199
+      - libicu72
+      - sudo
+    state: present
+    default_release: bookworm-backports
+
+- name: Asenna Jellyfin
+  apt:
+    name: jellyfin
+    state: present
+
+- name: Käynnistä ja ota Jellyfin käyttöön
+  systemd:
+    name: jellyfin
+    state: started
+    enabled: yes
+
+- name: Salli Jellyfin UFW:ssä
+  ufw:
+    rule: allow
+    port: "8096"
+    proto: tcp
