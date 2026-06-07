@@ -12,4 +12,7 @@
 - name: Configure Docker
   hosts: docker
   roles:
+    - common
     - docker
+    - arr 
+

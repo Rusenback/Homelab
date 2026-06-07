@@ -30,3 +30,22 @@
 - name: Ota UFW käyttöön
   ufw:
     state: enabled
+
+- name: Asenna NFS-client
+  apt:
+    name: nfs-common
+    state: present
+
+- name: Luo media-hakemisto
+  file:
+    path: /media
+    state: directory
+    mode: '0755'
+
+- name: Mounttaa NFS pysyvästi
+  mount:
+    path: /media
+    src: 192.168.1.50:/mnt/media
+    fstype: nfs
+    opts: defaults,_netdev
+    state: mounted

@@ -1,0 +1,30 @@
+---
+- name: Luo appdata-hakemistot
+  file:
+    path: /opt/appdata/{{ item }}
+    state: directory
+    mode: '0755'
+  loop:
+    - qbittorrent
+    - sonarr
+    - radarr
+    - prowlarr
+    - bazarr
+    - jellyseerr
+
+- name: Luo compose-hakemisto
+  file:
+    path: /opt/arr
+    state: directory
+    mode: '0755'
+
+- name: Kopioi Docker Compose
+  copy:
+    src: docker-compose.yml
+    dest: /opt/arr/docker-compose.yml
+    mode: '0644'
+
+- name: Käynnistä arr-stack
+  community.docker.docker_compose_v2:
+    project_src: /opt/arr
+    state: present

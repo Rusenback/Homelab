@@ -50,5 +50,4 @@ resource "proxmox_virtual_environment_vm" "docker" {
     vm_id   = var.debian_vm_template_id
     full    = true
   }
-
 }
