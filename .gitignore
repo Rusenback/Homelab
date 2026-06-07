@@ -1,7 +1,7 @@
 # .gitignore
 *.tfstate
 *.tfstate.backup
-.backup
+*.backup
 .terraform/
 *.tfvars
 *.tfplan
