@@ -1,0 +1,9 @@
+# .gitignore
+*.tfstate
+*.tfstate.backup
+.terraform/
+*.tfvars
+secrets.yml
+*.pem
+*.key
+.env
